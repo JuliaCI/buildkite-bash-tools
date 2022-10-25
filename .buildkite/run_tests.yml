@@ -1,0 +1,8 @@
+steps:
+  - label: ":bash: :${AGENT_OS?}: ${AGENT_OS?} ${AGENT_ARCH?}"
+    agents:
+      queue: "juliaecosystem"
+      os: "${AGENT_OS?}"
+      arch: "${AGENT_ARCH?}"
+    commands: |
+      cd test && ./run_tests.sh
