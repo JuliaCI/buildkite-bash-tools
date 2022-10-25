@@ -1,0 +1,21 @@
+steps:
+  - label: ":rocket: Launch test matrix"
+    agents:
+      queue: "juliaecosystem"
+    commands: |
+      # These variables are available for templating in our child pipelines
+      function upload_pipeline() {
+        export AGENT_OS="$${1}"
+        export AGENT_ARCH="$${2}"
+        buildkite-agent pipeline upload .buildkite/run_tests.yml
+      }
+      upload_pipeline linux x86_64
+      upload_pipeline linux aarch64
+      upload_pipeline linux powerpc64le
+
+      # Launch macOS jobs
+      upload_pipeline macos x86_64
+      upload_pipeline macos aarch64
+
+      # Launch Windows jobs
+      upload_pipeline windows x86_64
